@@ -9,17 +9,18 @@ export default class DrowForm {
   // отрисовка формы на странице
   drow() {
     const form = document.createElement('form');
-    const input = document.createElement('input');
+    // const input = document.createElement('input');
     this.button = document.createElement('button');
 
     form.classList.add('form');
-    input.classList.add('input');
+    // input.classList.add('input');
     this.button.classList.add('button');
 
-    input.type = 'text';
+    // input.type = 'text';
     this.button.type = 'submit';
+    this.button.textContent = 'Click to toggle popover';
 
-    form.appendChild(input);
+    // form.appendChild(input);
     form.appendChild(this.button);
 
     this.body.appendChild(form);
