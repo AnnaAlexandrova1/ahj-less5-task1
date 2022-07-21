@@ -27,7 +27,15 @@ export default class DrowForm {
   }
 
   showall() {
-    this.popover = new Popover(this.button);
-    this.popover.startShow();
+    this.button.onclick = (event) => {
+      event.preventDefault();
+      const button = document.querySelector('.button');
+      if (button.querySelector('.tooltip') === null) {
+        this.popover = new Popover(this.button);
+        this.popover.startShow();
+      } else {
+        button.removeChild(button.querySelector('.tooltip'));
+      }
+    };
   }
 }
