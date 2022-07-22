@@ -1,25 +1,43 @@
 export default class Popover {
   constructor(elem) {
     this.elem = elem;
-    this.popover = undefined;
+    this.tooltip = null;
+    this.existTooltip = false;
   }
 
-  show() {
-    this.popover = document.createElement('div');
-    this.popover.classList.add('tooltip');
-    this.popover.innerHTML = "<h1>Popover title</h1><p>And here is some amazing content. It's very engaging. Right?</p>";
-    this.elem.appendChild(this.popover);
-    this.caklPlace();
+  start() {
+    this.addTooltip();
+    this.button = document.querySelector('.buttonTooltip');
+
+    this.button.onclick = (event) => {
+      event.preventDefault();
+      this.showTooltip();
+    };
   }
 
-  caklPlace() {
-    // const { top, left } = this.elem.getBoundingClientRect();
-    // console.log(window.scrollY);
-    this.popover.style.top = `${this.elem.offsetTop - this.popover.offsetHeight - 10}px`;
-    this.popover.style.left = `${this.elem.offsetLeft - Math.abs(this.popover.offsetWidth - this.elem.offsetWidth) / 2}px`;
+  static get markUp() {
+    return `
+    <div class="tooltip hidden">
+<div class="tooltipText">
+<h1 class="tooltipTitle">Popover title</h1>
+<p class="tooltipText">And here's some amazing content.It's very engaging.Right?</p>
+</div>
+  </div>`;
   }
 
-  startShow() {
-    return this.show();
+  addTooltip() {
+    this.elem.insertAdjacentHTML('beforeend', this.constructor.markUp);
+  }
+
+  showTooltip() {
+    this.tooltip = document.querySelector('.tooltip');
+    this.tooltip.classList.toggle('hidden');
+    this.existTooltip = !this.tooltip.classList.contains('hidden');
+    this.calkPosition();
+  }
+
+  calkPosition() {
+    this.tooltip.style.top = `${this.button.offsetTop - this.tooltip.offsetHeight - 15}px`;
+    this.tooltip.style.left = `${this.button.offsetLeft - Math.abs(this.tooltip.offsetWidth - this.button.offsetWidth) / 2}px`;
   }
 }
